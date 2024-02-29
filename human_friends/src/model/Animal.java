@@ -1,8 +1,13 @@
 package model;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 public abstract class Animal {
     private int animalId;
     private String name;
+    private LocalDate dateOfBirth;
+    private ArrayList<String> commands;
     private String kindOfAnimal;
 
     public int getAnimalId() {
@@ -27,5 +32,13 @@ public abstract class Animal {
 
     public void setKindOfAnimal(String kindOfAnimal) {
         this.kindOfAnimal = kindOfAnimal;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }
