@@ -1,44 +1,47 @@
 package menu;
 
+import controller.AnimalController;
+
 import java.sql.*;
 import java.util.Scanner;
 
 public class UserMenu {
-    public UserMenu() {
+    AnimalController animalController;
+    public UserMenu(AnimalController controller) {
+        this.animalController = controller;
     }
     public void start() {
         System.out.println("Приветствую Вас в нашем питомнике!");
-
-    }
-    public void getAllAnimals(){
-        try{
-            String url = "jdbc:mysql://localhost/humananimals";
-            String username = "root";
-            String password = "12345";
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
-
-            try (Connection conn = DriverManager.getConnection(url, username, password)){
-
-                Statement statement = conn.createStatement();
-
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM All_animals");
-                while(resultSet.next()){
-
-                    int id = resultSet.getInt(1);
-                    String name = resultSet.getString(2);
-                    Date dateOfBirth = resultSet.getDate(3);
-                    String commands = resultSet.getString(4);
-                    String kindOfAnimal = resultSet.getString(5);
-                    String typeAnimal = resultSet.getString(6);
-                    System.out.printf("%1$d. %2$s - %3$tm-%3$td-%3$td '%4$s' %5$s %6$s\n", id, name,
-                            dateOfBirth, commands, kindOfAnimal, typeAnimal);
+        try(Scanner scanner = new Scanner(System.in)) {
+            boolean flag = true;
+            while(flag) {
+                System.out.println(
+                        "\nВсе обитатели питомника - 1; " +
+                                "\nЗавести новое животное - 2; " +
+                                "\nСписок команд животного - 3; " +
+                                "\nДобавить команду - 4;" +
+                                "\nВыйти - 0.");
+                String value = scanner.next();
+                switch (value) {
+                    case "1":
+                        animalController.getAllAnimals();
+                        break;
+                    case "2":
+                        break;
+                    case "3":
+                        break;
+                    case "4":
+                        break;
+                    case "0":
+                        flag = false;
+                        break;
+                    default:
+                        System.out.println("Не верная команда!");
+                        break;
                 }
+
             }
         }
-        catch(Exception ex){
-            System.out.println("Connection failed...");
-
-            System.out.println(ex);
-        }
     }
+
 }
