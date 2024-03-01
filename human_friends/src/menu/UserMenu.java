@@ -24,7 +24,7 @@ public class UserMenu {
                 String value = scanner.next();
                 switch (value) {
                     case "1":
-                        animalController.getAllAnimals();
+                        animalController.printAllAnimals();
                         break;
                     case "2":
                         break;
