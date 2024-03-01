@@ -27,6 +27,7 @@ public class UserMenu {
                         animalController.printAllAnimals();
                         break;
                     case "2":
+                        animalController.create();
                         break;
                     case "3":
                         break;
