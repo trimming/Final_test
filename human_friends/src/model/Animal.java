@@ -4,12 +4,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public abstract class Animal {
     private int animalId;
     private String name;
     private Date dateOfBirth;
-    private ArrayList<String> commands;
+    private List<String> commands;
     private String kindOfAnimal;
     private String typeAnimal;
 
@@ -49,15 +50,25 @@ public abstract class Animal {
         return dateOfBirth;
     }
 
-    public ArrayList<String> getCommands() {
+    public List<String> getCommands() {
         return commands;
     }
 
     public void setCommands(String commands) {
-        this.commands = (ArrayList<String>) Arrays.asList(commands.split("\\s*,\\s*"));
+        this.commands = new ArrayList<>(Arrays.asList(commands.split("\\s*,\\s*")));
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    @Override
+    public String toString() {
+        return animalId + ". " +
+                name +
+                " " + dateOfBirth +
+                " '" + commands.toString().replaceAll("^\\[|\\]$", "") + "' " +
+                kindOfAnimal +
+                " " + typeAnimal;
     }
 }

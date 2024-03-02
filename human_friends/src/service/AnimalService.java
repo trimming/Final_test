@@ -1,17 +1,23 @@
 package service;
 
 import model.Animal;
+import model.MakerNewEntries;
 
 import java.sql.*;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class AnimalService implements Service{
+    MakerNewEntries makerNewEntries;
+
+    public AnimalService() {
+        this.makerNewEntries = new MakerNewEntries();
+    }
+
     @Override
-    public void getAllAnimals() {
-        List<Animal> animalList = new ArrayList<Animal>();
+    public ArrayList<Animal> getAllAnimals() {
+        ArrayList<Animal> animalList = new ArrayList<>();
         Animal animal;
         try{
             String url = "jdbc:mysql://localhost/humananimals";
@@ -32,12 +38,13 @@ public class AnimalService implements Service{
                     String commands = resultSet.getString(4);
                     String kindOfAnimal = resultSet.getString(5);
                     String typeAnimal = resultSet.getString(6);
-                    System.out.printf("%1$d. %2$s - %3$tY-%3$tm-%3$td '%4$s' %5$s %6$s\n", id, name,
-                            dateOfBirth, commands, kindOfAnimal, typeAnimal);
+//                    System.out.printf("%1$d. %2$s - %3$tY-%3$tm-%3$td '%4$s' %5$s %6$s\n", id, name,
+//                            dateOfBirth, commands, kindOfAnimal, typeAnimal);
 
-
-
+                    animal = makerNewEntries.makeNewEntryAboutAnimal(id, name, dateOfBirth, commands, kindOfAnimal, typeAnimal);
+                    animalList.add(animal);
                 }
+                return animalList;
             }
         }
         catch(Exception ex){
@@ -45,6 +52,7 @@ public class AnimalService implements Service{
 
             System.out.println(ex);
         }
+        return animalList;
     }
 
     @Override
