@@ -1,12 +1,18 @@
 package service;
 
+import model.Animal;
+
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class AnimalService implements Service{
     @Override
     public void getAllAnimals() {
+        List<Animal> animalList = new ArrayList<Animal>();
+        Animal animal;
         try{
             String url = "jdbc:mysql://localhost/humananimals";
             String username = "root";
@@ -28,6 +34,9 @@ public class AnimalService implements Service{
                     String typeAnimal = resultSet.getString(6);
                     System.out.printf("%1$d. %2$s - %3$tY-%3$tm-%3$td '%4$s' %5$s %6$s\n", id, name,
                             dateOfBirth, commands, kindOfAnimal, typeAnimal);
+
+
+
                 }
             }
         }

@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class UserMenu {
     AnimalController animalController;
-    public UserMenu(AnimalController controller) {
-        this.animalController = controller;
+    public UserMenu() {
+        this.animalController = new AnimalController();
     }
     public void start() {
         System.out.println("Приветствую Вас в нашем питомнике!");

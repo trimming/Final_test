@@ -2,13 +2,24 @@ package model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 
 public abstract class Animal {
     private int animalId;
     private String name;
-    private LocalDate dateOfBirth;
+    private Date dateOfBirth;
     private ArrayList<String> commands;
     private String kindOfAnimal;
+    private String typeAnimal;
+
+    public String getTypeAnimal() {
+        return typeAnimal;
+    }
+
+    public void setTypeAnimal(String typeAnimal) {
+        this.typeAnimal = typeAnimal;
+    }
 
     public int getAnimalId() {
         return animalId;
@@ -34,11 +45,19 @@ public abstract class Animal {
         this.kindOfAnimal = kindOfAnimal;
     }
 
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public ArrayList<String> getCommands() {
+        return commands;
+    }
+
+    public void setCommands(String commands) {
+        this.commands = (ArrayList<String>) Arrays.asList(commands.split("\\s*,\\s*"));
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 }
