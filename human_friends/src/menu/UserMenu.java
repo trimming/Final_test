@@ -36,7 +36,7 @@ public class UserMenu {
                         animalController.create();
                         break;
                     case "3":
-                        animalController.getAnimalId();
+
                         break;
                     case "4":
                         break;

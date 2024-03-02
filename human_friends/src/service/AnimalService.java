@@ -10,17 +10,18 @@ import java.util.Scanner;
 
 public class AnimalService implements Service{
     MakerNewEntries makerNewEntries;
-    Counter counter;
+
 
     public AnimalService() {
         this.makerNewEntries = new MakerNewEntries();
-        this.counter = new Counter();
+
     }
 
     @Override
     public ArrayList<Animal> getAllAnimals() {
         ArrayList<Animal> animalList = new ArrayList<>();
         Animal animal;
+
         try{
             String url = "jdbc:mysql://localhost/humananimals";
             String username = "root";
@@ -54,15 +55,15 @@ public class AnimalService implements Service{
 
     @Override
     public void create() {
+        Counter counter = new Counter();
         try{
             String url = "jdbc:mysql://localhost/humananimals";
             String username = "root";
             String password = "12345";
             Scanner scanner = new Scanner(System.in);
-
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
 
-
+            int id = counter.add();
 
             System.out.print("Введите имя животного: ");
             String name = scanner.nextLine();
@@ -115,13 +116,14 @@ public class AnimalService implements Service{
 
             try (Connection conn = DriverManager.getConnection(url, username, password)){
 
-                String sql = "INSERT INTO All_animals (name, date_of_birth, commands, class, type_animal) Values (?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO All_animals (id, name, date_of_birth, commands, class, type_animal) Values (?, ?, ?, ?, ?, ?)";
                 PreparedStatement preparedStatement = conn.prepareStatement(sql);
-                preparedStatement.setString(1, name);
-                preparedStatement.setString(2, dateOfBirth);
-                preparedStatement.setString(3, commands);
-                preparedStatement.setString(4, kindOfAnimal);
-                preparedStatement.setString(5, type_animal);
+                preparedStatement.setInt(1, id);
+                preparedStatement.setString(2, name);
+                preparedStatement.setString(3, dateOfBirth);
+                preparedStatement.setString(4, commands);
+                preparedStatement.setString(5, kindOfAnimal);
+                preparedStatement.setString(6, type_animal);
 
                 int rows = preparedStatement.executeUpdate();
                 System.out.printf("%d rows added", rows);

@@ -10,10 +10,11 @@ public class Counter {
     int count;
 
     public Counter() {
-        this.count = getEntryId();
+
     }
 
     public int add() {
+        count = getEntryId();
         return count++;
     }
     public int getEntryId() {
@@ -34,7 +35,7 @@ public class Counter {
                 while(resultSet.next()){
 
                     id = resultSet.getInt(1);
-                    System.out.printf("%d. \n", id);
+
                 }
                 return id;
             }
