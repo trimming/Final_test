@@ -10,9 +10,11 @@ import java.util.Scanner;
 
 public class AnimalService implements Service{
     MakerNewEntries makerNewEntries;
+    Counter counter;
 
     public AnimalService() {
         this.makerNewEntries = new MakerNewEntries();
+        this.counter = new Counter();
     }
 
     @Override
@@ -26,20 +28,15 @@ public class AnimalService implements Service{
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
 
             try (Connection conn = DriverManager.getConnection(url, username, password)){
-
                 Statement statement = conn.createStatement();
-
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM All_animals");
                 while(resultSet.next()){
-
                     int id = resultSet.getInt(1);
                     String name = resultSet.getString(2);
                     Date dateOfBirth = resultSet.getDate(3);
                     String commands = resultSet.getString(4);
                     String kindOfAnimal = resultSet.getString(5);
                     String typeAnimal = resultSet.getString(6);
-//                    System.out.printf("%1$d. %2$s - %3$tY-%3$tm-%3$td '%4$s' %5$s %6$s\n", id, name,
-//                            dateOfBirth, commands, kindOfAnimal, typeAnimal);
 
                     animal = makerNewEntries.makeNewEntryAboutAnimal(id, name, dateOfBirth, commands, kindOfAnimal, typeAnimal);
                     animalList.add(animal);
@@ -65,6 +62,8 @@ public class AnimalService implements Service{
 
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
 
+
+
             System.out.print("Введите имя животного: ");
             String name = scanner.nextLine();
 
@@ -74,44 +73,45 @@ public class AnimalService implements Service{
             System.out.print("Введите через запятую команды, которые выполняет животное: ");
             String commands = scanner.nextLine();
 
-            System.out.print("Введите тип животного: " +
-                    "\nЕсли это кошка - 1;" +
-                    "\nСобака - 2;" +
-                    "\nХомяк - 3;" +
-                    "\nЛошадь - 4;" +
-                    "\nВерблюд - 5;" +
-                    "\nОсел - 6.\n");
+            System.out.print("""
+                    Введите тип животного:\s
+                    Если это кошка - 1;
+                    Собака - 2;
+                    Хомяк - 3;
+                    Лошадь - 4;
+                    Верблюд - 5;
+                    Осел - 6.
+                    """);
             String type_animal = null;
             String kindOfAnimal = null;
             switch (scanner.nextLine()) {
-                case "1":
+                case "1" -> {
                     type_animal = "Cat";
-                     kindOfAnimal = "Pet";
-                    break;
-                case "2":
+                    kindOfAnimal = "Pet";
+                }
+                case "2" -> {
                     type_animal = "Dog";
                     kindOfAnimal = "Pet";
-                    break;
-                case "3":
+                }
+                case "3" -> {
                     type_animal = "Hamster";
                     kindOfAnimal = "Pet";
-                    break;
-                case "4":
+                }
+                case "4" -> {
                     type_animal = "Horse";
                     kindOfAnimal = "Pack_animals";
-                    break;
-                case "5":
+                }
+                case "5" -> {
                     type_animal = "Camel";
                     kindOfAnimal = "Pack_animals";
-                    break;
-                case "6":
+                }
+                case "6" -> {
                     type_animal = "Donkey";
                     kindOfAnimal = "Pack_animals";
-                    break;
-                default:
-                    System.out.println("Этих не принимаем!");
-                    break;
-            };
+                }
+                default -> System.out.println("Этих не принимаем!");
+            }
+            ;
 
             try (Connection conn = DriverManager.getConnection(url, username, password)){
 
@@ -124,8 +124,8 @@ public class AnimalService implements Service{
                 preparedStatement.setString(5, type_animal);
 
                 int rows = preparedStatement.executeUpdate();
-
                 System.out.printf("%d rows added", rows);
+
             }
         }
         catch(Exception ex){

@@ -1,14 +1,18 @@
 package menu;
 
 import controller.AnimalController;
+import model.Animal;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserMenu {
     AnimalController animalController;
+    ArrayList<Animal> animalArrayList;
     public UserMenu() {
         this.animalController = new AnimalController();
+        this.animalArrayList = animalController.getAnimalList();
     }
     public void start() {
         System.out.println("Приветствую Вас в нашем питомнике!");
@@ -16,11 +20,13 @@ public class UserMenu {
             boolean flag = true;
             while(flag) {
                 System.out.println(
-                        "\nВсе обитатели питомника - 1; " +
-                                "\nЗавести новое животное - 2; " +
-                                "\nСписок команд животного - 3; " +
-                                "\nДобавить команду - 4;" +
-                                "\nВыйти - 0.");
+                        """
+
+                                Все обитатели питомника - 1;\s
+                                Завести новое животное - 2;\s
+                                Список команд животного - 3;\s
+                                Добавить команду - 4;
+                                Выйти - 0.""");
                 String value = scanner.next();
                 switch (value) {
                     case "1":
@@ -30,6 +36,7 @@ public class UserMenu {
                         animalController.create();
                         break;
                     case "3":
+                        animalController.getAnimalId();
                         break;
                     case "4":
                         break;
